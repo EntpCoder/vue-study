@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h1>Hello {{name}}</h1>
+    </div>
+    <script type = "text/javascript">
+        Vue.config.productionTip = false; // 阻止 vue 在启动时生成生产提示。
+        // el的两种写法 两个都可以
+        const v = new Vue({
+            // el:'#root', 第一种写法
+            // data第一种写法 对象式
+            data:{
+                name: '宋洋'
+            }
+        }).$mount("#root"); // 第二种写法  
+        // console.log(v); 
+        // data 第二种写法  使用组件时必须用这种写法  不能写箭头函数 箭头函数没有this 他会是全局的Window
+        const v2 = new Vue({
+            // el:'#root',
+            // data:function(){}
+            data(){
+                console.log('@@@',this) // 此处的this对象是Vue实例对象
+                return{
+                    name: '宋洋2'
+                }
+            }
+        })
+    </script>
+</body>
+</html>
