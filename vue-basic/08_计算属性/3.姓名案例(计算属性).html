@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+		计算属性：
+			1.定义：要用的属性不存在，要通过已有属性计算得来。
+			2.原理：底层借助了Objcet.defineproperty方法提供的getter和setter。
+			3.get函数什么时候执行？
+				(1).初次读取时会执行一次。
+				(2).当依赖的数据发生改变时会被再次调用。
+			4.优势：与methods实现相比，内部有缓存机制（复用），效率更高，调试方便。
+			5.备注：
+				1.计算属性最终会出现在vm上，直接读取使用即可。
+				2.如果计算属性要被修改，那必须写set函数去响应修改，且set中要引起计算时依赖的数据发生改变。
+		-->
+    <div id="root">
+        姓:<input type="text" v-model="firstName"><br>
+        名:<input type="text" v-model="lastName"><br>
+        <!-- 相比于methods,Vue会缓存fullName下面的三个fullName只会加载一次，只有所依赖的数据发生变化时才会重新调用get -->
+        姓名:<span>{{fullName}}</span>
+        姓名:<span>{{fullName}}</span>
+        姓名:<span>{{fullName}}</span>
+    </div>
+    <script>
+        const vm = new Vue({
+            data: {
+                firstName: '张',
+                lastName: '三'
+            },
+            computed: {
+                // 自动通过get拿到返回值放在vm中，fullName不是对象，是计算属性！！
+                fullName: {
+                    // get有什么作用，当有人读取fullName时，get就会被调用，且返回值就作为fullName的值(和之前Object.defineProperty同理)
+                    // get什么时候调用:1.初次读取fullName时2.所依赖的数据发生变化时
+                    get() {
+                        //console.log(this) 此处的this是vm
+                        console.log('被调用了')
+                        return this.firstName + '-' + this.lastName
+                    },
+                    // 非必须，如果fullName 只是读取用的就可以不写set 如果fullName可能被修改需要写set
+                    // 当fullName被修改时就会调用set方法
+                    set(value) {
+                        console.log('set获取到值：', value)
+                        const arr = value.split('-')
+                        this.firstName = arr[0]
+                        this.lastName = arr[1]
+                    }
+                }
+            }
+        }).$mount("#root");
+        console.log(vm);
+    </script>
+
+</body>
+
+</html>

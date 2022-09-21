@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <style>
+        *{
+            margin-top: 20px;
+        }
+        .demo1{
+            height: 50px;
+            background-color: skyblue;
+        }
+        .box1{
+            padding: 5px;
+            background-color: skyblue;
+        }
+        .box2{
+            padding: 5px;
+            background-color: orange;
+        }
+        .list{
+            width: 200px;
+            height: 200px;
+            background: peru;
+            overflow: auto;
+        }
+        li{
+            height: 100px;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Vue事件修饰符:(可以@click.stop.prevent表示先停止冒泡再阻止默认事件)
+            1.prevent:阻止默认事件(常用)
+            2.stop:阻止事件冒泡(常用)
+            3.once:事件只触发一次(常用)
+            4.capture:使用事件的捕获模式(捕获阶段触发事件)
+            5.self:只有event.target为当前元素时才触发事件
+            6.passive:事件的默认行为立即执行,无需等待事件回调完毕
+     -->
+    <div id="root">
+        <h2>你好，我叫{{name}}</h2>
+        <!-- 阻止默认事件 -->
+        <a href="http://www.baidu.com" @click.prevent="showInfo">a标签</a>
+        <!-- 阻止冒泡 -->
+        <div class="demo1" @click="showInfo">
+            <button @click.stop="showInfo">点我提示信息</button>
+        </div>
+        <!-- 事件只触发一次 -->
+        <button @click.once="showInfo">事件只触发一次</button>
+        <!-- 使用事件捕获模式(捕获阶段就触发事件) -->
+        <div class="box1" @click.capture="showMsg(1)">
+            box1
+            <div class="box2" @click="showMsg(2)">
+                box2
+            </div>
+        </div>
+        <!-- 只有event.target是当前操作元素时才会触发事件:
+            下案例为当点击btn时，向上冒泡，但是div的target元素不是当前元素，所以div的事件不会触发 -->
+        <div class="demo1" @click.self="showInfo">
+            <button @click="showInfo">点我提示信息(self)</button>
+        </div>
+        <!-- 事件的默认行为立即执行,无需等待事件回调完毕 -->
+        <!-- wheel事件和scroll事件
+                scroll事件是滚动条事件，滚动条发生变化时触发
+                wheel事件是滚轮事件，滚轮滚动事件触发  -->
+        <ul @wheel.passive="demo" class="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+
+    </div>
+    <script>
+        const vm = new Vue({
+            data:{
+                name:'宋洋'
+            },
+            methods:{
+                showInfo(even){
+                   alert("hello")
+                },
+                showMsg(msg){
+                   console.log(msg)
+                },
+                demo(){
+                    for (let i = 0; i < 20000; i++) {
+                        console.log("@")
+                    }
+                    console.log("累坏了")
+                    
+                }
+            }
+        }).$mount("#root");
+        console.log(vm);
+    </script>
+</body>
+</html>
