@@ -58,6 +58,10 @@
             <div class="basic" :class="classArr">{{name}}</div> <br/><br/>
             <!-- 绑定class样式--对象写法，适用于：要绑定的样式个数确定、名字也确定，但要动态决定用不用 -->
             <div class="basic" :class="classObj">{{name}}</div> <br/><br/>
+            <!-- 绑定style样式--对象写法（了解） -->
+            <div class="basic" :style="styleObj">{{name}}</div> <br/><br/>
+            <!-- 绑定style样式--数组写法（了解） -->
+            <div class="basic" :style="styleArr">{{name}}</div> <br/><br/>
 		</div>
 </body>
 <script type="text/javascript">
@@ -71,8 +75,21 @@
             classArr:['s1','s2','s3'],
             classObj:{
                 s1:false,
-                s2:false
-            }
+                s2:true
+            },
+            styleObj:{
+                fontSize:'40px',
+                color:'blue'
+            },
+            styleArr:[
+                {
+                    fontSize:'40px',
+                    color:'blue'
+                },
+                {
+                    backgroundColor:'orange'  
+                }
+            ]
         },
         methods: {
             changeMood(){
