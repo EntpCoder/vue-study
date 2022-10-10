@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <template v-if = "this.step === 'link-server'">
+            <input v-model="userId" placeholder="请输入您的名字"></input>
+            <button @click="initWebSocket">连接服务器</button>
+        </template>
+        <template v-if = "this.step === 'link-friend'">
+            <input v-model="friendId" placeholder="请输入您要聊天人的名字"></input>
+            <button @click="linkFriend">连接好友</button>
+        </template>
+        <template v-if = "this.step === 'ok'">
+            <input v-model="message" placeholder="请输入您要发送的内容"></input>
+            <button @click="send">发送</button>
+            <button @click="messageList = []">清屏</button>
+            <ul>
+                <li v-for="m in messageList">
+                    {{m}}
+                </li>
+        </template>
+    </div>
+    <script>
+        const vm = new Vue({
+            data: {
+                userId : '',
+                step : 'link-server',
+                friendId : '',
+                message : '',
+                messageList:[]
+            },
+            mounted() {
+              //初始化websocket
+              //this.initWebSocket()
+            },
+            methods: {
+                initWebSocket: function (){
+                    this.step = "link-friend";
+                    var userId = this.userId;
+                    var url = "ws://192.168.186.120:8080/websocket/"+userId;
+                    this.websock = new WebSocket(url);
+                    this.websock.onopen = this.onOpen;
+                    this.websock.onerror = this.onError;
+                    this.websock.onmessage = this.onmessage;
+                },
+                linkFriend(){
+                    this.step = "ok";
+                    this.websock.send(this.friendId);
+                },
+                onOpen : function(){
+                    alert("连接成功");
+                },
+                onmessage : function(event){
+                    this.messageList.push(event.data);
+                },
+                onError : function(){
+                    alert("连接失败");
+                },
+                send : function(){
+                    this.messageList.push("我:"+this.message);
+                    this.websock.send(this.message);
+                }
+            }
+        }).$mount("#root");
+    </script>
+
+</body>
+
+</html>
