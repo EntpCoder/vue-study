@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <h2>人员列表</h2>
+        <!-- <h2>学校的名称:{{name}}</h2>
+        <h2>学校的地址:{{address}}</h2> -->
+    </div>
+    <script>
+        let data = {name:'八一农大',address:'大庆'}
+        // 创建一个监视的实例对象，用于监视data中的属性变化
+        const obs =  new Observer(data)
+        // 准备一个vm对象
+        let vm = {}
+        vm._data = data = obs
+        console.log(vm._data)
+        function Observer(obj){
+            // 汇总对象中的所有属性形成一个数组
+            const keys = Object.keys(obj)
+            // 遍历
+            keys.forEach(k => {
+                Object.defineProperty(this,k,{
+                    get(){
+                        return obj[k]
+                    },
+                    set(val){
+                        console.log(`${k}被改了，我去解析模板，生成dom...`)
+                        obj[k] = val
+                    }
+                })
+            });
+        }
+        // 错误实现 死递归
+        // Object.defineProperty(data,'name',{
+        //     get(){
+        //         return data.name
+        //     },
+        //     set(val){
+        //         data.name = val
+        //     }
+        // })
+    </script>
+</body>
+</html>

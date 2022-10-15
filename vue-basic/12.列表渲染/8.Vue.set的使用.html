@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>学生信息</h2>
+        <h2>学校的名称:{{name}}</h2>
+        <h2>学校的地址:{{address}}</h2>
+        <h2>校长是:{{leader}}</h2>
+        <button @click="addSex">添加性别属性（默认值:男）</button></button>
+        <h2>学生姓名:{{student.name}}</h2>
+        <h2 v-if="student.sex">学生性别:{{student.sex}}</h2>
+        <h2>对外年龄{{student.age.rAge}} -- 实际年龄{{student.age.sAge}}</h2>
+        <ul>
+            <li v-for="(f,index) in friends" :key="index">
+                {{f.name}}--{{f.age}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        // 用computed实现
+        const vm = new Vue({
+            data: {
+                name:'八一农大',
+                address:'大庆',
+                student:{
+                    name : '宋洋',
+                    age : {
+                        rAge:22,
+                        sAge:18
+                    }
+                },
+                friends:[
+                    {name:'小张',age:22},
+                    {name:'小洪',age:22},
+                    {name:'小铭',age:20}                    
+                ]
+            },
+            methods:{
+                addSex(){
+                    //Vue.set(this.student,'sex','男')
+                    this.$set(this.student,'sex','男')
+                }
+            }
+        }).$mount("#root");
+        console.log(vm)
+    </script>
+</body>
+</html>
