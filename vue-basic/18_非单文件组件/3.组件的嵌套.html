@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+    </div>
+    <script>
+        // 创建student组件
+        const student = Vue.extend({
+            // 组件定义时一定不要写el配置项 因为最终所有组件都要被一个vm管理，由vm决定服务于哪个容器。
+            template:`
+                    <div>
+                        <h2>学生姓名:{{srudentName}}</h2>
+                        <h2>学生年龄:{{age}}</h2>
+                    </div>
+                    `,
+            data(){
+                return{
+                    srudentName:'宋洋',
+                    age:23,
+                }   
+            }
+        })
+        // 创建school组件
+        const school = Vue.extend({
+            // 组件定义时一定不要写el配置项 因为最终所有组件都要被一个vm管理，由vm决定服务于哪个容器。
+            template:`
+                    <div>
+                        <h2>学校名称:{{schoolName}}</h2>
+                        <h2>学校地址:{{address}}</h2>
+                        <button @click="showName">点我提示学校名</button>
+                        <student></student>
+                    </div>
+                    `,
+            data(){
+                return{
+                    schoolName:'bilibili大学',
+                    address:'bilibili.com',
+                }   
+            },
+            methods:{
+                showName(){
+                    alert(this.schoolName)
+                }
+            },
+            components:{
+                student
+            }
+        })
+        const hello = Vue.extend({
+            // 组件定义时一定不要写el配置项 因为最终所有组件都要被一个vm管理，由vm决定服务于哪个容器。
+            template:`
+                    <div>
+                        <h2>{{msg}}</h2>
+                    </div>
+                    `,
+            data(){
+                return{
+                    msg:'啦啦啦啦'
+                }   
+            }
+        })
+        
+        // 定义app组件
+        const app = Vue.extend({
+            template:`
+                <div>
+                    <school></school>
+                    <hello></hello>
+                </div>
+            `,
+            components:{
+                school,hello
+            }
+        })
+        // 创建vm
+        new Vue({
+            template:`<app></app>`,
+            // 注册组件(局部)
+            components:{
+                app
+            }
+        }).$mount("#root");
+    </script>
+</body>
+
+</html>

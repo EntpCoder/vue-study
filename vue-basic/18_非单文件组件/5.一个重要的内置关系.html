@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 实例的原型对象永远指向自己缔造者的原型对象 -->
+    <!-- 
+		1.一个重要的内置关系：VueComponent.prototype.__proto__ === Vue.prototype
+	    2.为什么要有这个关系：让组件实例对象（vc）可以访问到 Vue原型上的属性、方法。
+	-->
+    <div id="root">
+        <school></school>
+    </div>
+    <script>
+        Vue.prototype.x = 99
+        // 创建school组件
+        const school = Vue.extend({
+            template:`
+                    <div>
+                        <h2>学校名称:{{schoolName}}</h2>
+                        <h2>学校地址:{{address}}</h2>
+                        <button @click="showx">点我输出x</button>
+                    </div>
+                    `,
+            data(){
+                return{
+                    schoolName:'bilibili大学',
+                    address:'bilibili.com',
+                }
+            },
+            methods:{
+                showx(){
+                    alert(this.x)
+                }
+            } 
+        })
+        console.log(school.prototype.__proto__ === Vue.prototype)
+        // 创建vm
+        const vm = new Vue({
+            // 注册组件(局部)
+            components:{
+                school
+            }
+        }).$mount("#root");
+
+        console.log(vm)
+        // function Demo(){
+        //     this.a = 1
+        //     this.b = 2
+        // }
+        // // 创建一个demo的实例对象
+        // const demo = new Demo()
+        // // 显式原型属性和隐式原型属性指向原型对象
+        // console.log(Demo.prototype)// 显式原型属性
+        // console.log(demo.__proto__)// 隐式原型属性
+        // // 程序员通过原型属性操作原型对象，追加一个x属性，值为99
+        // Demo.prototype.x = 99
+    </script>
+</body>
+
+</html>
