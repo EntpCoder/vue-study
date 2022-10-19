@@ -1,10 +1,8 @@
 <template>
   <div>
-    <Student/>
+    <Student name="李四" sex="女" :age="18"/>
     <hr>
-    <Student/>
-    <hr>
-    <Student/>
+    <Student name="小张" sex="男" :age="12"/>
     <hr>
   </div>
 </template>
