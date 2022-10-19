@@ -8,7 +8,7 @@
 <script>
 // 组件交互相关的代码(数据方法等)
 export default {
-    name:'School',
+    name:'SchoolName',
     data(){
         return{
             name:'Bilibili大学',
