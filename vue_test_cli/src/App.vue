@@ -1,15 +1,25 @@
 <template>
   <div class="container">
-    <Serach />
-    <List />
+    <Category title="游戏"> </Category>
+    <Category title="游戏"> </Category>
+    <Category title="游戏"> </Category>
   </div>
 </template>
 
 <script>
-import Serach from "./components/Serach";
-import List from "./components/List";
+import Category from "./components/Category";
 export default {
   name: "App",
-  components: { Serach, List },
+  components: { Category },
 };
 </script>
+<style>
+.container,
+.foot {
+  display: flex;
+  justify-content: space-around;
+}
+h4 {
+  text-align: center;
+}
+</style>
