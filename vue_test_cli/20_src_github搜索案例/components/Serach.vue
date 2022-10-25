@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: "SerachComponents",
   data(){
@@ -23,7 +24,7 @@ export default {
   methods:{
     serachUsers(){
       this.$bus.$emit('updateListData',{isFirst:false,isLoading:true,errMsg:'',users:[]})
-      this.$http.get(`https://api.github.com/search/users?q=${this.keyword}`)
+      axios.get(`https://api.github.com/search/users?q=${this.keyword}`)
         .then(
           response =>{
             // console.log("请求成功",response.data)
