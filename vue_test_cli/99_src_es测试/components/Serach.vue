@@ -23,11 +23,11 @@ export default {
   },
   methods:{
     serachUsers(){
-      axios.get(`https://api.github.com/search/users?q=${this.keyword}`)
+      axios.get(`http://localhost:8088/product/getProductByName/${this.keyword}/1`)
         .then(
           response =>{
-            // console.log("请求成功",response.data)
-            this.$bus.$emit('getUsers',response.data.items)
+            console.log("请求成功",response.data.data.productList)
+            this.$bus.$emit('getProducts',response.data.data.productList)
           },
           error =>{
             console.log("请求失败了",error.message)

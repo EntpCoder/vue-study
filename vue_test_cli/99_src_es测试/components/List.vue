@@ -1,10 +1,10 @@
 <template>
   <div class="row">
-    <div class="card" v-for="user in users" :key="user.login">
-      <a :href="user.html_url" target="_blank">
-        <img :src="user.avatar_url" style="width: 100px" />
+    <div class="card" v-for="p in products" :key="p.proId">
+      <a :href="p.imgUrl" target="_blank">
+        <img :src="p.imgUrl" style="width: 100px" />
       </a>
-      <p class="card-text">{{user.login}}</p>
+      <p class="card-text" v-html="p.proName"></p>
     </div>
   </div>
 </template>
@@ -14,12 +14,12 @@ export default {
   name: "ListComponents",
   data(){
     return{
-        users:[]
+        products:[]
     }
   },
   mounted(){
-    this.$bus.$on('getUsers',(users)=>{
-      this.users = users
+    this.$bus.$on('getProducts',(products)=>{
+      this.products = products
     })
   }
 };
