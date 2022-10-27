@@ -9,16 +9,14 @@
         <!-- 携带params参数不能通过path只能通过name -->
         <router-link
           :to="{
-            name: 'xiangqing',
-            query: {
-              id: m.id,
-              title: m.title,
+            name:'xiangqing',
+            params: {
+              id:m.id,
+              title:m.title
             },
           }"
           >{{ m.title }}
         </router-link>
-        <button @click="pushShow(m)">push查看</button>
-        <button @click="replaceShow(m)">replace查看</button>
       </li>
     </ul>
     <hr />
@@ -38,27 +36,6 @@ export default {
       ],
     };
   },
-  methods: {
-    pushShow(m) {
-      // console.log(this.$router)
-      this.$router.push({
-        name: "xiangqing",
-        query: {
-          id: m.id,
-          title: m.title,
-        },
-      });
-    },
-    replaceShow(m) {
-      this.$router.replace({
-        name: "xiangqing",
-        query: {
-          id: m.id,
-          title: m.title,
-        },
-      });
-    },
-  }
 };
 </script>
 

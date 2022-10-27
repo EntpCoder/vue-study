@@ -27,6 +27,7 @@ export default {
   // }
   activated() {
     this.timer = setInterval(() => {
+      console.log('@')
       this.opacity -= 0.01
       if(this.opacity <= 0) this.opacity = 1
     }, 16);

@@ -975,8 +975,13 @@ module.exports = {
 2. 具体编码：
 
    ```vue
+   // News为组件的name
    <keep-alive include="News"> 
        <router-view></router-view>
+   </keep-alive>
+   // 多个的写法
+   <keep-alive :include="['a','b','c']">
+      <router-view></router-view>
    </keep-alive>
    ```
 

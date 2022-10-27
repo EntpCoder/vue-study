@@ -8,7 +8,6 @@ import Message from '../pages/Message'
 import Detail from '../pages/Detail'
 //创建一个路由器
 const router = new VueRouter({
-    mode:'history',
     routes: [
         {
             name: 'guanyu',
@@ -28,17 +27,17 @@ const router = new VueRouter({
                     component: News,
                     meta: { title: '新闻', isAuth: true },
                     // 独享路由守卫
-                    // beforeEnter: (to, from, next) => {
-                    //     if (to.meta.isAuth) {//判断是否需要鉴权
-                    //         if (localStorage.getItem('user') === 'songyang') {
-                    //             next()
-                    //         } else {
-                    //             alert("无权限查看！！！")
-                    //         }
-                    //     } else {
-                    //         next()
-                    //     }
-                    // }
+                    beforeEnter: (to, from, next) => {
+                        if (to.meta.isAuth) {//判断是否需要鉴权
+                            if (localStorage.getItem('user') === 'songyang') {
+                                next()
+                            } else {
+                                alert("无权限查看！！！")
+                            }
+                        } else {
+                            next()
+                        }
+                    }
                 },
                 {
                     name: 'xiaoxi',

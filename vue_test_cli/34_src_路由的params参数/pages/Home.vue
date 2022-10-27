@@ -21,9 +21,7 @@
           >
         </li>
       </ul>
-      <keep-alive include="NewsComponents">
-        <router-view></router-view>
-      </keep-alive>
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -31,6 +29,12 @@
 <script>
 export default {
   name: "HomeComponents",
+  mounted() {
+    console.log("Home组件挂载完毕");
+  },
+  beforeDestroy() {
+    console.log("Home组件要销毁了");
+  },
 };
 </script>
 

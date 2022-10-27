@@ -55,10 +55,10 @@ export default {
         query: {
           id: m.id,
           title: m.title,
-        },
+        }
       });
     },
-  }
+  },
 };
 </script>
 

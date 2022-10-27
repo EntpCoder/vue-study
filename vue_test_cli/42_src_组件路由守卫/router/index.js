@@ -8,7 +8,6 @@ import Message from '../pages/Message'
 import Detail from '../pages/Detail'
 //创建一个路由器
 const router = new VueRouter({
-    mode:'history',
     routes: [
         {
             name: 'guanyu',

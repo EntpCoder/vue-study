@@ -24,6 +24,9 @@
       <keep-alive include="NewsComponents">
         <router-view></router-view>
       </keep-alive>
+      <!-- <keep-alive :include="['a','b','c']">
+        <router-view></router-view>
+      </keep-alive> -->
     </div>
   </div>
 </template>

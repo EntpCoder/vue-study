@@ -58,7 +58,10 @@ export default {
         },
       });
     },
-  }
+  },
+  beforeDestroy() {
+    console.log("Message即将被销毁");
+  },
 };
 </script>
 
