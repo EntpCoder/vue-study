@@ -1,26 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app">
+    <h3>我是App(祖)</h3>
+    <Suspense>
+      <template v-slot:default>
+        <Child></Child>
+      </template> 
+      <template v-slot:fallback>
+        正在加载中.....
+      </template>
+    </Suspense>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// 静态引入
+// import Child from './components/Child'
+import {defineAsyncComponent} from 'vue'
+// 异步引入
+const Child = defineAsyncComponent(()=>import('./components/Child'))
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  components: { Child }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.app {
+  background-color: gray;
+  padding: 10px;
 }
 </style>
